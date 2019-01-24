@@ -1,5 +1,8 @@
 body{
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
 }
 
 .main-menu{
@@ -38,7 +41,6 @@ body{
   flex-direction: row;
   flex: 50%;
   max-width: 50%;
-  height: 100%;
 }
 
 .flex-des{
@@ -46,7 +48,6 @@ body{
   flex: 50%;
   flex-direction: column;
   max-width: 50%;
-  height: 100%;
 }
 
 .flex-box1{
