@@ -22,6 +22,8 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .flex-nav{
@@ -30,11 +32,14 @@
   height: 300px;
   flex-direction: row;
   flex: 50%;
+  max-width: 50%;
 }
 
 .flex-des{
   display: flex;
   flex: 50%;
+  flex-direction: column;
+  max-width: 50%;
 }
 
 .flex-box1{
