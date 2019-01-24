@@ -1,4 +1,9 @@
 .main-menu{
-list-style: none;
-padding-left: 0;
+  list-style: none;
+  padding-left: 0;
+}
+
+.main-menu li{
+  border: 1px solid #bebebe;
+  padding: 10px;
 }
