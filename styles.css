@@ -33,6 +33,7 @@
 
 .flex-des{
   display: flex;
+  flex: 1;
 }
 
 .flex-box1{
