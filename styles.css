@@ -29,11 +29,12 @@
   flex-wrap: wrap;
   height: 300px;
   flex-direction: row;
+  flex: 50%;
 }
 
 .flex-des{
   display: flex;
-  flex: 1;
+  flex: 50%;
 }
 
 .flex-box1{
