@@ -1,28 +1,52 @@
 body{
+	margin: 0px;
+	background-color: #edffc3;
+}
+
+.main{
   height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;  
+  margin: 0px;
+}
+
+.sub{
+	height: 100vh;
+	margin: 0px;
 }
 
 .main-menu{
   list-style: none;
-  padding-left: 0;
+  text-align: center;
+  background-color: #cfffc3;
+  margin-top:0px;
+  height: 13vh;
 }
 
-.main-menu li{
+.active{
+  background-color: #fff;
+}
+
+.home{
+  width: 4em;
+  display: inline-block;
   padding: 5px;
-  width: 8em;
+}
+
+.main-menu li:not(:first-child){
+  padding: 5px;
+  width: 12em;
   font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+  display: inline-block;
+}
+
+.main-menu a{
+	text-decoration: none;
+	width: 100%;
+	display:block;
 }
 
 .home-icon{
-  width:100%;
-}
-
-.btn-light {
-  width: 10em;
-  font-color: #fff;
+  width:4em;
 }
 
 .flex-container{
@@ -37,11 +61,10 @@ body{
 .flex-nav{
   display: flex;
   flex-wrap: wrap;
-  height: 300px;
-  flex-direction: row;
+  height: 600px;
   flex: 50%;
   max-width: 50%;
-  padding: 0px 10px 10px 0px;
+  padding: 0px 10px 0px 10px;
 }
 
 .flex-des{
@@ -49,40 +72,80 @@ body{
   flex: 50%;
   flex-direction: column;
   max-width: 50%;
-  padding: 0px 10px 10px 0px;
+  padding: 100px;
+}
+
+.all-box{
+  display: flex;
+  flex: 1;
+  flex-basis: 40%;
+  margin: 5px;
+  background-size:cover;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  font-size: 30px;
+  color: #fff;
+  font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+}
+
+div.all-box a {
+	display: block;
+	width: 100%;
+	text-decoration: none;
+	color: inherit;
+	background-color: rgba(200,200,200,0.6);
 }
 
 .flex-box1{
-  display: flex;
-  flex: 1;
-  width: 500px;
   background-color: #279afa;
-  flex-basis: 50%;
+  background-image: url("http://www.portoalegre.travel/upload/b/25/253375_cute-birds-wallpapers.jpg");
 }
 
 
 .flex-box2{
-  display: flex;
-  flex: 1;
-  width: 500px;
   background-color: #89da74;
-  flex-basis: 50%;
+  background-image: url("https://s7d2.scene7.com/is/image/PetSmart/ARTHMB-NewPetBirdChecklist-20160818?$AR1104$");
 }
 
 
 .flex-box3{
-  display: flex;
-  flex: 1;
-  width: 500px;
   background-color: #3fd77f;
-  flex-basis: 50%;
+  background-image: url("https://insider.si.edu/wp-content/uploads/2017/04/SCTA-copy.jpg");
 }
 
 
 .flex-box4{
-  display: flex;
-  flex: 1;
-  width: 500px;
   background-color: #75e465;
-  flex-basis: 50%;
+  background-image: url("https://action.audubon.org/sites/default/files/sfw_APA_2013_28342_232388_BrianKushner_Blue_Jay_KK_900x9_1.jpg");
+}
+
+.intro{
+	font-size: 16px;
+	font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+	color: #8d8d8d;
+}
+
+div.flex-des h1{
+	color: #bebebe;
+	font-size: 60px;
+}
+
+div.main-body {
+	background-color: #fff;
+	width: 50%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #bebebe;
+	padding: 10px;
+}
+
+div.main-body h1{
+	text-align: center;
+}
+
+iframe{
+	margin: 0 auto;
+	display: block;
 }
