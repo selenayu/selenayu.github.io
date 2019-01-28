@@ -19,7 +19,7 @@ body{
   text-align: center;
   background-color: #cfffc3;
   margin-top:0px;
-  height: 13vh;
+  height: 11vh;
 }
 
 .active{
@@ -141,6 +141,10 @@ div.main-body {
 	padding: 10px;
 }
 
+img.header{
+	width: 100%;
+}
+
 div.main-body h1{
 	text-align: center;
 }
@@ -148,4 +152,41 @@ div.main-body h1{
 iframe{
 	margin: 0 auto;
 	display: block;
+}
+
+.important{
+	color: red;
+}
+
+table{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table,th,td{
+	border: 5px solid #fff;
+}
+
+th, td{
+	padding: 10px;
+}
+
+th{
+	background-color: #ffc3ed;
+}
+
+table tr{
+	background-color: #d5c3ff;
+}
+
+table tr:nth-child(odd){
+	background-color: #e3ffdd;
+}
+
+.good-birds{
+	width: 10em;
+}
+
+.contact{
+	text-align: center;
 }
