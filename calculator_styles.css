@@ -1,0 +1,43 @@
+@media only screen and (max-width : 570px) {
+	div.main{
+		width: 100%;
+	}
+}
+
+.main{
+	width: 570px;
+	background-color: #cecece;
+	border-radius: 20px;
+	margin: 0 auto;
+	height: 500px;
+	padding: 20px;
+	box-shadow: 2px 2px;
+}
+
+.screen-row{
+	height: 30%;
+}
+
+.row{
+	height: 12%;
+	margin-bottom: 10px;
+}
+
+#prev{
+	float: right;
+	font-size: 14px;
+	padding-right: 10%;
+}
+
+#result{
+	margin-top: 20px;
+	width: 80%;
+	height: 80px;
+	text-align: right;
+	font-size: 28px;
+}
+
+.btn{
+	width: 20%;
+	height: 100%;
+}
