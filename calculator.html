@@ -59,7 +59,7 @@
 				var prevAns = $('#prev').val();
 				
 				//if an evaluation was just completed AND next input is not an operation, start a new equation
-				if(prevAns === currAns && prevAns != '' id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%' ){
+				if(prevAns === currAns && prevAns != ''&& id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%' ){
 					$('#prev').val('');
 					$("#prev").text('Ans = '+ prevAns);
 					$("#result").val(id);
