@@ -58,6 +58,7 @@
 				var currAns = $("#result").val();
 				var prevAns = $('#prev').val();
 				
+				//if the input is a number or bracket AND a previous answer exists, start a new equation
 				if(prevAns != "" && id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%' ){
 					$('#prev').val('');
 					$("#prev").text('Ans = '+ prevAns);
@@ -74,8 +75,8 @@
 					$("#result").val(currAns.slice(0,-1));
 				}
 
-				//if button pressed is equals, calculate and save input to display above
-				else if(id === 'equals'){
+				//if button pressed is equals AND there is an equation to evaluate, calculate and save input to display above
+				else if(id === 'equals' && currAns != ''){
 					var ans = eval(currAns);
 					$("#result").val(ans);
 					$("#prev").val(ans);
