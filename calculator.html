@@ -52,6 +52,7 @@
 <script>
 	$(document).ready(function() {
 
+		var ans = '';
 		$(".btn").click(function() {
 			try{
 				var id  = $(this).attr("id");
@@ -59,8 +60,8 @@
 				var prevAns = $('#prev').val();
 				
 				//if the input is a number or bracket AND a previous answer exists, start a new equation
-				if(prevAns != '' && id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%' ){
-					alert(prevAns);
+				if(prevAns != '' && ans != '' && id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%' ){
+					ans = '';
 					$('#prev').val('');
 					$("#prev").text('Ans = '+ prevAns);
 					$("#result").val(id);
@@ -78,7 +79,7 @@
 
 				//if button pressed is equals AND there is an equation to evaluate, calculate and save input to display above
 				else if(id === 'equals' && currAns != ''){
-					var ans = eval(currAns);
+					ans = eval(currAns);
 					$("#result").val(ans);
 					$("#prev").val(ans);
 					$("#prev").text(currAns + '=');
