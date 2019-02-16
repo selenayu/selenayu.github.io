@@ -59,7 +59,7 @@
 				var prevAns = $('#prev').val();
 				
 				//if the input is a number or bracket AND a previous answer exists, start a new equation
-				if(prevAns != "" && id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%' ){
+				if(prevAns != '' && id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%' ){
 					$('#prev').val('');
 					$("#prev").text('Ans = '+ prevAns);
 					$("#result").val(id);
@@ -70,7 +70,7 @@
 					$("#result").val(currAns + id);
 				}
 
-				//if button pressed is ce, remove last added char
+				//if button pressed is ce AND there is an equation to delete, remove last added char
 				else if(id === 'ce' && currAns != ''){
 					$("#result").val(currAns.slice(0,-1));
 				}
