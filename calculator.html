@@ -60,6 +60,7 @@
 				
 				//if the input is a number or bracket AND a previous answer exists, start a new equation
 				if(prevAns != '' && id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%' ){
+					alert(prevAns);
 					$('#prev').val('');
 					$("#prev").text('Ans = '+ prevAns);
 					$("#result").val(id);
