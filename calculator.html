@@ -58,7 +58,8 @@
 				var currAns = $("#result").val();
 				var prevAns = $('#prev').val();
 				
-				if(prevAns != "" && id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%'){
+				if(prevAns != "" && id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%' ){
+					$('#prev').val('');
 					$("#prev").text('Ans = '+ prevAns);
 					$("#result").val(id);
 				}
