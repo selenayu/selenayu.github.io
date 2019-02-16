@@ -60,7 +60,7 @@
 				var prevAns = $('#prev').val();
 				
 				//if it's a new equation and a previous answer exists, start a new equation
-				if(newEq === true && prevAns != null && id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%' ){
+				if(newEq === true && prevAns != '' && id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%' ){
 					$('#prev').val('');
 					$("#prev").text('Ans = '+ prevAns);
 					$("#result").val(id);
