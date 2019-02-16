@@ -54,31 +54,36 @@
 
 		$(".btn").click(function() {
 			try{
-			var id  = $(this).attr("id");
-			var currAns = $("#result").val();
-			var prevAns = $('#prev').val();
+				var id  = $(this).attr("id");
+				var currAns = $("#result").val();
+				var prevAns = $('#prev').val();
+				
+				if(prevAns != "" && id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%'){
+					$("#prev").text('Ans = '+ prevAns);
+					$("#result").val(id);
+				}
 
-			//if button pressed is not ce AND not equals, update result value
-			if(id != 'ce' && id != 'equals') {
-				$("#result").val(currAns + id);
-			}
+				//if button pressed is not ce AND not equals, update result value
+				else if(id != 'ce' && id != 'equals') {
+					$("#result").val(currAns + id);
+				}
 
-			//if button pressed is ce, remove last added char
-			else if(id === 'ce'){
-				$("#result").val(currAns.slice(0,-1));
-			}
+				//if button pressed is ce, remove last added char
+				else if(id === 'ce'){
+					$("#result").val(currAns.slice(0,-1));
+				}
 
-			//if button pressed is equals, calculate and save input to display above
-			else if(id === 'equals'){
-				var ans = eval(currAns);
-				$("#result").val(ans);
-				$("#prev").val(ans);
-				$("#prev").text(currAns + '=');
-			}
-			}
-			catch(e){
-				$("#prev").text(currAns + '=ERROR');
-			}
+				//if button pressed is equals, calculate and save input to display above
+				else if(id === 'equals'){
+					var ans = eval(currAns);
+					$("#result").val(ans);
+					$("#prev").val(ans);
+					$("#prev").text(currAns + '=');
+				}
+				}
+				catch(e){
+					$("#prev").text(currAns + '=ERROR');
+				}
 		});
 	});
 </script>
