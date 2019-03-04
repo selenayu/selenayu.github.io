@@ -51,33 +51,42 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
-
+		
 		$(".btn").click(function() {
 			try{
-			var id  = $(this).attr("id");
-			var currAns = $("#result").val();
-			var prevAns = $('#prev').val();
+				var id  = $(this).attr("id");
+				var currAns = $("#result").val();
+				var prevAns = $('#prev').val();
+				
+				//if an evaluation was just completed AND next input is a number/bracket, start a new equation
+				if(prevAns === currAns && prevAns != ''&& id != '+' && id != '-' && id!= '*' && id!= '/' && id!= '%' && id!= 'ce' && id != 'equals' ){
+					$('#prev').val('');
+					$("#prev").text('Ans = '+ prevAns);
+					$("#result").val(id);
+				}
 
-			//if button pressed is not ce AND not equals, update result value
-			if(id != 'ce' && id != 'equals') {
-				$("#result").val(currAns + id);
-			}
+				//if button pressed is not ce AND not equals, update result value
+				else if(id != 'ce' && id != 'equals') {
+					$("#result").val(currAns + id);
+				}
 
-			//if button pressed is ce, remove last added char
-			else if(id === 'ce'){
-				$("#result").val(currAns.slice(0,-1));
-			}
+				//if button pressed is ce AND there is an equation to delete, remove last added char
+				else if(id === 'ce' && currAns != ''){
+					$("#result").val(currAns.slice(0,-1));
+				}
 
-			//if button pressed is equals, calculate and save input to display above
-			else if(id === 'equals'){
-				var ans = eval(currAns);
-				$("#result").val(ans);
-				$("#prev").val(ans);
-				$("#prev").text(currAns + '=');
-			}
+				//if button pressed is equals AND there is an equation to evaluate, calculate and save input to display above
+				else if(id === 'equals' && currAns != ''){
+					var ans = eval(currAns);
+					$("#result").val(ans);
+					$("#prev").val(ans);
+					$("#prev").text(currAns + '=');
+				}
 			}
 			catch(e){
 				$("#prev").text(currAns + '=ERROR');
+				$("#prev").val(currAns + '=ERROR');
+				$("#result").val(currAns + '=ERROR');
 			}
 		});
 	});
