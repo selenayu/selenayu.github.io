@@ -1,7 +1,7 @@
 ﻿<!doctype html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>Chat Application</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
@@ -23,7 +23,7 @@
 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
 	    $(function () {
-			var socket = io();
+			var socket = io.connect();
 			$('form').submit(function(e){
 			  e.preventDefault(); // prevents page reloading
 			  socket.emit('chat message', $('#m').val());
