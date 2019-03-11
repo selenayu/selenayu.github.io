@@ -1,38 +1,281 @@
 ﻿<!doctype html>
 <html>
-  <head>
-    <title>Chat Application</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-    </style>
-  </head>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat Application</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
+</head>
   <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
 
+  <style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+html{height: 100%;}
+body { font-family: Lato; font-size: 15px; height: 100%; display: flex; background-color: #add8e6;}
+form { padding: 5px; position: fixed; bottom: 0; width: 80%; }
+form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; border-radius: 10px;}
+form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+#messages { list-style-type: none; margin: 0; padding: 0; position: absolute; bottom:0; width: 100%; max-height:500px; overflow: auto;}
+#messages li { padding: 5px 10px; }
+
+@media only screen and (max-width : 820px) {
+	body{
+		width: 100%;
+	}
+
+	form{
+		width: 80%;
+	}
+
+	form input{
+		width: 100%;
+	}
+
+	form button{
+		width:100%;
+		margin-top: 10px;
+	}
+
+	#main-chat{
+		width: 70%;
+	}
+
+	#user-list{
+		width:80%;
+	}
+
+	h2{
+		font-size: 18px;
+	}
+}
+
+#user-list{
+	width:20%;
+	float: right;
+	border: 3px solid #ebebeb;
+	height: 100%;
+	list-style-type: none;
+	border-radius: 10px;
+	background-color: #fff;
+	padding: 10px;
+}
+
+#user-list li {
+	padding: 5px;
+}
+
+#user-list li:nth-child(even) {
+	background: #ebebeb;
+}
+
+#user-info{
+	height: 10%;
+	color: #fff;
+	padding: 10px;
+}
+
+#main-chat{
+	width: 80%;
+	overflow: hidden;
+}
+#chat-log{
+	height: 70%;
+	position: relative;
+	overflow: auto;
+	border-radius: 10px;
+	background-color: #fff;
+	margin: 10px;
+}
+#text-field{
+	height: 5%;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey; 
+	border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #7f7fff;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #646BFF; 
+}
+  </style>
+
+  <div id="main-chat">
+  <div id="user-info">
+	<span id="username"></span>
+  </div>
+  <div id="chat-log">
+    <ul id="messages"></ul>
+	</div>
+	<div id="text-field">
+    <form action="">
+      <input id="m" autocomplete="off" /><button type="button" class="btn btn-primary">Send</button>
+    </form>
+	</div>
+  </div>
+	<div id="user-list">
+		<h2>Online Users</h2>
+		<hr>
+		<ul id="users"></ul>
+	</div>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
 	    $(function () {
 			var socket = io();
+			var nickname = "";
+
 			$('form').submit(function(e){
-			  e.preventDefault(); // prevents page reloading
-			  socket.emit('chat message', $('#m').val());
-			  $('#m').val('');
-			  return false;
+				e.preventDefault(); // prevents page reloading
+
+				//check if user entered in the nickname change command
+				if($('#m').val().startsWith("/nick ")){
+					var new_name = $('#m').val().substring(6);
+
+					//send name change request to server
+					socket.emit('name change', new_name);
+
+					//update nickname if no name conflict detected
+					nickname = new_name;
+					$("#username").text("You are logged in as: " + nickname);
+					document.cookie = "username="+nickname;
+				}
+
+				//check if user entered in the nickname color change command
+				else if($('#m').val().startsWith("/nickcolor ")){
+					var new_color = $('#m').val().substring(11);
+
+					//error checking for 6 character hex code
+					if(new_color.length !== 6){
+						alert("Invalid color code");
+					}
+					//send color change request to server
+					else{
+						socket.emit('color change', new_color);
+					}
+				}
+
+				//if user did not enter any valid commands, send new message to server
+				else{
+			  		socket.emit('chat message', $('#m').val());
+				}
+
+				$('#m').val('');
+				return false;
 			});
-			socket.on('chat message', function(msg){
-			  $('#messages').append($('<li>').text(msg));
+
+			//display new message from any clients
+			socket.on('chat message', function(time, user, msg, color){
+				time = new Date(time);
+				var new_message = "";
+				var hour = time.getHours();
+				var minute = time.getMinutes();
+
+				if(hour < 10){
+					hour = '0' + hour;
+				}
+
+				if(minute < 10){
+					minute = '0' + minute;
+				}
+
+				var format_time = hour + ":" + minute;
+				new_message = "<li><span style=\"font-size:12px\">"+format_time+"</span><br><span style=\"color:"+color+"\">"+user+"</span>: "+msg+"</li><hr>";
+
+				//if message came from user, send server log chat history request and bold text
+				if(user === nickname){
+					socket.emit('log message', new_message);
+					new_message = "<li><span style=\"font-size:12px\">"+format_time+"</span><br><span style=\"color:"+color+"\">"+user+"</span>: <b>"+msg+"</b></li><hr>";
+				}
+
+				$('#messages').append(new_message);
+				$('#messages').stop().animate({ scrollTop: $('#messages')[0].scrollHeight}, 600);
 			});
+
+			//send server username stored in cookie
+			socket.on('handshake', function(){
+				socket.emit('handshake response', getCookie("username"));
+			});
+
+			//upon receiving nickname from server, update cookie and trigger new user event to update server's online user list and retrive chat log history
+			socket.on('connected', function(name){
+				nickname = name;
+				$("#username").text("You are logged in as: " + nickname);
+				document.cookie = "username="+nickname;
+				socket.emit('new user', nickname);
+				socket.emit('display log', nickname);
+			});
+
+			//display chat log history
+			socket.on('display log', function(chat_log){
+				$.each(chat_log, function(index,value){
+					$('#messages').append(value);
+				});
+				$('#messages').stop().animate({ scrollTop: $('#messages')[0].scrollHeight}, 600);
+			});
+
+			//update online user list
+			socket.on('user list', function(user_list){
+				$('#user-list li').remove();
+				$.each(user_list, function(index,value){
+					$('#user-list').append($('<li>').text(value));
+				});
+			});
+
+			//error message for name conflict
+			socket.on('name conflict', function(conflict){
+				if(conflict){
+					alert("Nickname already taken, please choose another one.")
+				}
+			});
+
+			//update new name in online user list
+			socket.on('name change', function(old_name,new_name){
+				$('#user-list li').each(function(){
+					if($(this).text() === old_name){
+						$(this).text(new_name);
+					}
+				});
+			});
+
+			//remove client from online user list upon disconnect
+			socket.on('disconnected', function(name){
+				$('#user-list li').each(function(){
+					if($(this).text() === name){
+						$(this).remove();
+					}
+				});
+			});
+
+			//get the username field of document cookie
+			function getCookie(field) {
+			  var name = field + "=";
+			  var decodedCookie = decodeURIComponent(document.cookie);
+			  var cookies = decodedCookie.split(';');
+			  for(var i = 0; i <cookies.length; i++) {
+				var c = cookies[i];
+				while (c.charAt(0) == ' ') {
+				  c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+				  return c.substring(name.length, c.length);
+				}
+			  }
+			  return "";
+			}
 	  });
 	</script>
 
